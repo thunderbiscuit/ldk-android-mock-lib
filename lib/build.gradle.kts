@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
+    id("kotlin-android")
     id("maven-publish")
+    id("org.jetbrains.dokka") version "1.6.10"
 }
 
 android {
@@ -39,6 +41,15 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
 
     // implementation("net.java.dev.jna:jna:5.8.0@aar")
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    dokkaSourceSets {
+        named("main") {
+            moduleName.set("ldk-android")
+            includes.from("Module.md")
+        }
+    }
 }
 
 afterEvaluate {
